@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -6,7 +7,7 @@ namespace PolarisAICore.Response {
     public static class ResponseController {
 
         public static String SetResponse(Utterance u) {
-
+            Log.Logger.Information($"SetResponse called with utterance with code:{u.Code}");
             String intentName = u.TopScoringIntent.Name;
 
             intentName = intentName.First().ToString().ToUpper() + intentName.Substring(1);
@@ -19,7 +20,10 @@ namespace PolarisAICore.Response {
                 return (String)classMethod.Invoke(null, new object[] { u });
             }
             else
+            {
+                Log.Logger.Warning($"Warning: the classType of the query was not valid");
                 return null;
+            }
         }
     }
 }
