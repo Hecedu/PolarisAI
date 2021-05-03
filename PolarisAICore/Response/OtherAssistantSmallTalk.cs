@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 
 namespace PolarisAICore.Response {
     class OtherAssistantSmallTalk {
@@ -13,7 +14,7 @@ namespace PolarisAICore.Response {
         };
 
         public static String SetResponse(Utterance u) {
-            
+            Log.Logger.Information($"Response for utterance with code: {u.Code}. Determined to be OtherAssistantSmallTalk");
             return _noEntityResponses[_random.Next(_noEntityResponses.Length)];
         }
     }

@@ -6,8 +6,8 @@ using System.Reflection;
 namespace PolarisAICore.Response {
     public static class ResponseController {
 
-        public static String SetResponse(Utterance u) {
-            Log.Logger.Information($"SetResponse called with utterance with code:{u.Code}");
+        public static String SetResponse(Utterance u) { 
+            Log.Logger.Debug($"SetResponse called with utterance with code:{u.Code}");
             String intentName = u.TopScoringIntent.Name;
 
             intentName = intentName.First().ToString().ToUpper() + intentName.Substring(1);

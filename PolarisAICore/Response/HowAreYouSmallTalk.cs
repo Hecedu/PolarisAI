@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 
 namespace PolarisAICore.Response {
     class HowAreYouSmallTalk {
@@ -13,7 +14,7 @@ namespace PolarisAICore.Response {
         };
 
         public static String SetResponse(Utterance u) {
-            
+            Log.Logger.Information($"Response for utterance with code: {u.Code}. Determined to be HowAreYouSmallTalk");
             return _noEntityResponses[_random.Next(_noEntityResponses.Length)];
         }
     }

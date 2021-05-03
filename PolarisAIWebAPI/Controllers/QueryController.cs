@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using System.Diagnostics;
 
 namespace PolarisAIWebAPI.Controllers
 {
@@ -13,7 +14,7 @@ namespace PolarisAIWebAPI.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            Log.Logger.Information($"API called, query was null.");
+            Log.Logger.Information($"POST: Get called, query was null.");
             return "Query is null";
         }
 
@@ -21,8 +22,13 @@ namespace PolarisAIWebAPI.Controllers
         [HttpGet("{query}")]
         public ActionResult<JObject> GetQuery(string query)
         {
-            Log.Logger.Information($"API called, query is: {query}");
-            return PolarisAICore.PolarisAICore.Cognize(query);
+            var timer = new Stopwatch();
+            timer.Start();
+            Log.Logger.Information($"POST: GetQuery called, query is: {query}");
+            var result = PolarisAICore.PolarisAICore.Cognize(query);
+            timer.Stop();
+            Log.Logger.Information($"POST: GetQuery executed in {timer.ElapsedMilliseconds}ms");
+            return result;
         }
     }
 }

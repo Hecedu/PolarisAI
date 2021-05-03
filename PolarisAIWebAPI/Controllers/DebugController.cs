@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Diagnostics;
 
 namespace PolarisAIWebAPI.Controllers
 {
@@ -20,8 +21,13 @@ namespace PolarisAIWebAPI.Controllers
         [HttpGet("{query}")]
         public ActionResult<string> GetDebug(string query)
         {
-            Log.Logger.Debug($"Debug: API called, query is: {query}");
-            return PolarisAICore.PolarisAICore.CognizeDebug(query);
+            var timer = new Stopwatch();
+            timer.Start();
+            Log.Logger.Information($"POST: GetQuery called, query is: {query}");
+            var result = PolarisAICore.PolarisAICore.CognizeDebug(query);
+            timer.Stop();
+            Log.Logger.Information($"POST: GetQuery executed in {timer.ElapsedMilliseconds}ms");
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Serilog;
 using System;
 
 namespace PolarisAICore.Response {
@@ -26,7 +27,7 @@ namespace PolarisAICore.Response {
         };
 
         public static String SetResponse(Utterance u) {
-
+            Log.Logger.Information($"Response for utterance with code: {u.Code}. Determined to be PlaySong");
             if (u.Entity["entity"].Type != JTokenType.Null)
                 return $"{_responses[_random.Next(_responses.Length)]} '{u.Entity["entity"]}'.";
             else

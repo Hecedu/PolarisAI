@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 
 namespace PolarisAICore.Response {
     class ShowNews {
@@ -15,7 +16,7 @@ namespace PolarisAICore.Response {
         };
 
         public static String SetResponse(Utterance u) {
-            
+            Log.Logger.Information($"Response for utterance with code: {u.Code}. Determined to be ShowNews");
             return _noEntityResponses[_random.Next(_noEntityResponses.Length)];
         }
     }
