@@ -16,7 +16,7 @@ namespace PolarisAICore {
 
         static void Main() {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName)
                 .AddJsonFile("appsettings.json")
                 .Build();
             Log.Logger = new LoggerConfiguration()
